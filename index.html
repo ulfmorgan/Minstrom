@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="sv">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Min ström</title>
+  <meta name="description" content="Spotpriser på el för SE1–SE4. Utan reklam.">
+  <meta name="theme-color" content="#0f1720" media="(prefers-color-scheme: dark)">
+  <meta name="theme-color" content="#f6f7f9" media="(prefers-color-scheme: light)">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Min ström">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="icons/icon-180.png">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="top">
+    <h1>Min ström</h1>
+    <button id="refresh" class="icon-btn" aria-label="Uppdatera">
+      <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path fill="currentColor" d="M12 4a8 8 0 0 1 7.75 6h-2.1A6 6 0 1 0 18 14h2.05A8 8 0 1 1 12 4Zm5 1h3v5h-5V8h2.1A6 6 0 0 0 12 6V4a8 8 0 0 1 5 1Z"/></svg>
+    </button>
+  </header>
+
+  <main>
+    <nav class="areas" id="areas" aria-label="Elområde"></nav>
+
+    <section class="now card" aria-live="polite">
+      <div class="now-label" id="now-label">Pris just nu</div>
+      <div class="now-price"><span id="now-value">–</span><span class="unit">öre/kWh</span></div>
+      <div class="now-sub" id="now-sub"></div>
+    </section>
+
+    <div class="day-tabs" role="tablist">
+      <button role="tab" data-day="today" aria-selected="true">Idag</button>
+      <button role="tab" data-day="tomorrow" aria-selected="false">Imorgon</button>
+    </div>
+
+    <section class="card">
+      <div class="stats" id="stats"></div>
+      <div class="chart-wrap">
+        <svg id="chart" role="img" aria-label="Elpris per timme"></svg>
+        <div id="tooltip" class="tooltip" hidden></div>
+      </div>
+      <p class="empty" id="empty" hidden></p>
+    </section>
+
+    <section class="card">
+      <h2>Billigaste perioder</h2>
+      <div class="best" id="best"></div>
+    </section>
+
+    <details class="card settings">
+      <summary>Inställningar</summary>
+      <label class="row"><span>Visa pris inkl. moms (25 %)</span><input type="checkbox" id="opt-vat"></label>
+      <label class="row"><span>Visa per kvart (15 min)</span><input type="checkbox" id="opt-quarter"></label>
+      <label class="row"><span>Eget påslag (öre/kWh, före moms)</span><input type="number" id="opt-markup" inputmode="decimal" step="0.1" min="0" value="0"></label>
+    </details>
+
+    <footer class="foot">
+      <span id="status"></span><br>
+      Källa: Nord Pool day-ahead. Spotpris utan nätavgift och energiskatt.
+    </footer>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
